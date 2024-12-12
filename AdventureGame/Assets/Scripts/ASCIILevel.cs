@@ -21,9 +21,12 @@ public class ASCIILevel : MonoBehaviour
 
     public GameObject key;
 
-    public GameObject newObject;
+    public GameObject player;
+
     //Variables for current player
     public GameObject currentPlayer;
+
+    private GameObject newObject;
 
     //Variable for starting position of player
     Vector2 startPos;
@@ -90,8 +93,13 @@ public class ASCIILevel : MonoBehaviour
                 //write a switch statement for the character to determine what it means
                 switch (c)
                 {
-                    //save position to the startPos to use for resetting the player
                     case 'p':
+                        //Make a player gameObject
+                        newObject = Instantiate<GameObject>(player);
+                        //check to see if we have a player, it not, make this player
+                        if (currentPlayer == null)
+                            currentPlayer = newObject;
+                        //save position to the startPos to use for resetting the player
                         startPos = new Vector2(x + xOffset, -y + yOffset);
                         break;
                     //write a case where if the character is w, make a wall
@@ -115,6 +123,20 @@ public class ASCIILevel : MonoBehaviour
                     default:
                         newObject = null;
                         break;
+                }
+
+                if (newObject != null) 
+                {
+                    //check if its a player
+                    if (newObject.name.Contains("Player"))
+                    {
+                        //make the level gameobject the parent of new object
+                        newObject.transform.parent = level.transform;
+                    }
+
+                    //no matter what the new object is, set its position based on offsets 
+                    //and also the position in the file
+                    newObject.transform.position = new Vector3(x + xOffset, -y + yOffset, 0);
                 }
 
             }
