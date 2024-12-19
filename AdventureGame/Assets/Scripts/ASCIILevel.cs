@@ -66,7 +66,7 @@ public class ASCIILevel : MonoBehaviour
         level = new GameObject("Level");
 
         //build a new level path based on the currentLevel
-        string current_file_path = Application.dataPath + "/Resources" + fileName.Replace("Num", currentLevel + "");
+        string current_file_path = Application.dataPath + "/Resources/" + fileName.Replace("Num", currentLevel + "");
 
         //pull the contents of the file into a string array
         //each line of the file will be an item will be an item in the array, pretty much translating into a language for ASCII to read the file
